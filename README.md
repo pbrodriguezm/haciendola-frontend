@@ -17,4 +17,20 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-![login validando credenciales](images/login.png)
+## Screenshots
+
+![login validando credenciales](images/1login.png)
+
+![Productos](images/2products.png)
+
+![Buscador](images/3productSearch.png)
+
+![Edit producto](images/4.png)
+
+![Agregar producto](images/4productEdit.png)
+
+![Eliminar producto](images/5.png)
+
+![Edicion de usuario](images/7.png)
+
+
