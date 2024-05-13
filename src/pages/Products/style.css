@@ -1,0 +1,33 @@
+.app-bar {
+  background-color: #1976d2;
+}
+
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+}
+
+.grow {
+  flex-grow: 1; 
+}
+
+.search {
+  width: 300px; 
+  margin-left: 16px;
+  margin-right: 16px;
+}
+
+.add-button {
+  margin-right: 16px;
+}
+
+.user-info {
+  display: flex;
+  align-items: center; 
+}
+
+.user-name {
+  margin-right: 16px;
+  font-weight: bold;
+  color: #fff;
+}
