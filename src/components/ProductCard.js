@@ -11,6 +11,7 @@ import axios from 'axios';
 import ProductModal from './ProductModal';
 import { useAuth } from '../AuthContext';
 import Barcode from './Barcode';
+import { useNavigate } from 'react-router-dom';
 
 const REACT_APP_BACKEND_URL = process.env.REACT_APP_API_URL;
 
@@ -19,6 +20,7 @@ const ProductCard = ({ product }) => {
   const [showAllDescription, setShowAllDescription] = useState(false);
   const [openModal, setOpenModal] = useState(false);
   const { user } = useAuth();
+  const navigate = useNavigate();
 
   const handleEdit = () => {
     setOpenModal(true);
@@ -32,14 +34,15 @@ const ProductCard = ({ product }) => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`${REACT_APP_BACKEND_URL}/product/${id}`, {
+      await axios.delete(`${REACT_APP_BACKEND_URL}/product/${product.id}`, {
         headers: {
           Authorization: `Bearer ${user.access_token}`,
         },
       });
       toast.success('Producto eliminado correctamente');
+      navigate('/login');
     } catch (error) {
-      console.error('Error al eliminar el producto:', error);
+      toast.error('Error al eliminar el producto');
     }
   };
 

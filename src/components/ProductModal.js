@@ -7,7 +7,7 @@ import { useAuth } from '../AuthContext';
 
 const REACT_APP_BACKEND_URL = process.env.REACT_APP_API_URL;
 
-const ProductModal = ({ open, onClose, productId, product }) => {
+const ProductModal = ({ open, onClose, product }) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [price, setPrice] = useState(0);
@@ -17,15 +17,15 @@ const ProductModal = ({ open, onClose, productId, product }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (productId) {
-      updateData(productId);
+    if (product) {
+      updateData();
     } else {
       setTitle('');
       setDescription('');
       setPrice(0);
       setComparePrice(0);
     }
-  }, [productId]);
+  }, [product]);
 
   const updateData = async () => {
     setTitle(product.title);
@@ -44,8 +44,8 @@ const ProductModal = ({ open, onClose, productId, product }) => {
       compare_price: comparePrice,
     };
     try {
-      if (productId) {
-        const responseUpdate = await axios.put(`${REACT_APP_BACKEND_URL}/product/${productId}`, productData, {
+      if (product) {
+        const responseUpdate = await axios.put(`${REACT_APP_BACKEND_URL}/product/${product.id}`, productData, {
           headers: {
             Authorization: `Bearer ${user.access_token}`,
           },
@@ -63,7 +63,7 @@ const ProductModal = ({ open, onClose, productId, product }) => {
           toast.success('Producto Creado correctamente');
         }
       }
-      // navigate('/login');
+      navigate('/login');
       onClose();
     } catch (error) {
       console.error('Error al guardar el producto:', error);
@@ -73,13 +73,13 @@ const ProductModal = ({ open, onClose, productId, product }) => {
   return (
     <Modal open={open} onClose={onClose}>
       <Box sx={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: 400, bgcolor: 'background.paper', boxShadow: 24, p: 4 }}>
-        <Typography variant="h5">{productId ? 'Editar Producto' : 'Agregar Producto'}</Typography>
+        <Typography variant="h5">{product?.id ? 'Editar Producto' : 'Agregar Producto'}</Typography>
         <form onSubmit={handleSubmit}>
           <TextField label="Título" value={title} onChange={(e) => setTitle(e.target.value)} fullWidth margin="normal" />
           <TextField label="Descripción" value={description} onChange={(e) => setDescription(e.target.value)} fullWidth multiline margin="normal" />
           <TextField label="Precio" type="number" value={price} onChange={(e) => setPrice(e.target.value)} fullWidth margin="normal" />
           <TextField label="Precio de comparación" type="number" value={comparePrice} onChange={(e) => setComparePrice(e.target.value)} fullWidth margin="normal" />
-          <Button type="submit" variant="contained" color="primary" fullWidth>{productId ? 'Guardar Cambios' : 'Agregar Producto'}</Button>
+          <Button type="submit" variant="contained" color="primary" fullWidth>{product?.id ? 'Guardar Cambios' : 'Agregar Producto'}</Button>
         </form>
       </Box>
     </Modal>
